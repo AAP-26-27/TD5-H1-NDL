@@ -7,7 +7,7 @@ Implémentation des fonctions puissance rapide (indienne) en itératif et en ré
 from my_plot import *
 import math 
 
-nb_operations = 0
+
 
 def puissance_rapide(x, n):
     global nb_operations
@@ -27,13 +27,22 @@ def puissance_rapide(x, n):
 
 
 def puissance_rapide_rec(x,n):
-    global nb_operations
+    nb_operations = 0
+    def puissance_inter(x_inter,p):
+        nonlocal nb_operations
+        if p==1:
+            return x_inter
+        # cas de base 
 
-    # cas de base 
-
+        if p % 2 == 1: 
+            nb_operations +=2
+            return x_inter*puissance_inter(x_inter*x_inter,p//2)
+        else:
+            nb_operations+=1
+            return puissance_inter(x_inter*x_inter,p//2)
     # cas général
 
-    return 0
+    return (puissance_inter(x,n),nb_operations)
 
 
 def benchmark(exposant_max,nombre_pas=20): 
@@ -87,7 +96,7 @@ def debordement(exposant_max,nombre_pas=20):
         print("2 ^ ", p, " = ", puissance_rapide_rec(2,p))
 
 if __name__ == "__main__":
-    benchmark(1000,200)
-    debordement(1000,5)
-
+    #benchmark(1000,200)
+    #debordement(1000,5)
+    print(puissance_rapide_rec(4,8))
     

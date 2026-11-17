@@ -23,13 +23,18 @@ def puissance(x, n):
     return resultat
 
 def puissance_rec(x,n):
-    global nb_operations
+    nb_operations=0
 
-    #cas de base 
-
-    #cas général
-
-    return 0
+    def puissance_rec_inter(x_inter,p):
+        nonlocal nb_operations
+        if p==0:
+            return 1
+        #cas de base 
+        else:
+            nb_operations=1+nb_operations
+            return x_inter*puissance_rec_inter(x_inter,p-1)
+        #cas général
+    return (puissance_rec_inter(x,n), nb_operations)
 
 
 
@@ -71,7 +76,9 @@ def debordement(exposant_max,nombre_pas=20):
         print("2 ^ ", p, " = ", puissance_rec(2,p))
 
 if __name__ == "__main__":
-    benchmark(100,20)
-    debordement(1000,5)
+    #benchmark(100,20)
+    #debordement(1000,5)
+    print(puissance_rec(2,4))
+    print ("T(n)=T(n/2)+O(1)")
 
     
